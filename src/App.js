@@ -1,16 +1,23 @@
 import './styles/styles.css';
-import React from 'react';
-import Box from './Box';
+import React, { useState } from 'react';
 
-import { TextContext } from './context';
+const App = () => {
+  const [counter, setCounter] = useState(0);
+  const [isHover, setIsHover] = useState(false);
+  const style = { border: `${isHover * 4}px solid red` };
 
-export default class App extends React.Component {
-  render() {
-    const { Provider } = TextContext;
-    return (
-      <Provider value={'Context API test!'}>
-        <Box />
-      </Provider>
-    );
-  }
-}
+  return (
+    <div>
+      <button
+        style={style}
+        onMouseEnter={(e) => setIsHover(true)}
+        onMouseLeave={(e) => setIsHover(false)}
+        onClick={(e) => setCounter(counter + 1)}
+      >
+        {counter}
+      </button>
+    </div>
+  );
+};
+
+export default App;
