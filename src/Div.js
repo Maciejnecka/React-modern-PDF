@@ -1,11 +1,10 @@
 import React from 'react';
-
 import { TextContext } from './context';
 
 export default class Div extends React.Component {
-  render() {
-    const { Consumer } = TextContext;
+  static contextType = TextContext;
 
-    return <Consumer>{(context) => <div>{context}</div>}</Consumer>;
+  render() {
+    return <div>{this.context}</div>;
   }
 }
