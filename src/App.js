@@ -1,17 +1,25 @@
+import React, { useReducer } from 'react';
 import './styles/styles.css';
-import Box from './Box';
-import ThemeContext from './context/ThemeContext';
-
 const App = () => {
-  const settings = {
-    primaryFontSize: '18px',
-    primaryColor: '#666',
+  const init = { firstName: '', lastName: '' };
+  const reducer = (state, { name, value }) => {
+    return { ...state, [name]: value };
   };
-
+  const [state, dispatch] = useReducer(reducer, init);
+  const { firstName, lastName } = state;
   return (
-    <ThemeContext.Provider value={settings}>
-      <Box />
-    </ThemeContext.Provider>
+    <div>
+      <input
+        name="firstName"
+        value={firstName}
+        onChange={(e) => dispatch(e.target)}
+      />
+      <input
+        name="lastName"
+        value={lastName}
+        onChange={(e) => dispatch(e.target)}
+      />
+    </div>
   );
 };
 
