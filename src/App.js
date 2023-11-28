@@ -1,19 +1,18 @@
 import './styles/styles.css';
-import React, { useState, useEffect, useRef } from 'react';
+import Box from './Box';
+import ThemeContext from './context/ThemeContext';
+
 const App = () => {
-  const [counter, setCounter] = useState(0);
-  const intervalRef = useRef(null);
-  const stopInterval = () => {
-    clearInterval(intervalRef.current);
+  const settings = {
+    primaryFontSize: '18px',
+    primaryColor: '#666',
   };
 
-  useEffect(() => {
-    intervalRef.current = setInterval(() => {
-      setCounter((value) => value + 1);
-    }, 1000);
-    return () => stopInterval();
-  }, []);
-  return <button onClick={(e) => stopInterval()}>stop</button>;
+  return (
+    <ThemeContext.Provider value={settings}>
+      <Box />
+    </ThemeContext.Provider>
+  );
 };
 
 export default App;
