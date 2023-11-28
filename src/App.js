@@ -1,40 +1,19 @@
 import './styles/styles.css';
-import React, { useState, useEffect } from 'react';
-
+import React, { useState, useEffect, useRef } from 'react';
 const App = () => {
   const [counter, setCounter] = useState(0);
-  const [entered, setEntered] = useState(0);
-
-  // console.log('before');
-  // useEffect(() => {
-  //   console.log('counter: ', counter);
-  // }, [counter]);
-  // console.log('after');
-
-  // useEffect(() => {
-  //   document.title = `${counter} / ${entered}`;
-  // }, [counter, entered]);
+  const intervalRef = useRef(null);
+  const stopInterval = () => {
+    clearInterval(intervalRef.current);
+  };
 
   useEffect(() => {
-    const id = setInterval(() => {
+    intervalRef.current = setInterval(() => {
       setCounter((value) => value + 1);
     }, 1000);
-    return () => {
-      clearInterval(id);
-    };
+    return () => stopInterval();
   }, []);
-
-  return (
-    <div>{counter}</div>
-    // <div>
-    //   <button
-    //     onMouseEnter={(e) => setEntered(entered + 1)}
-    //     onClick={(e) => setCounter(counter + 1)}
-    //   >
-    //     {counter} / {entered}
-    //   </button>
-    // </div>
-  );
+  return <button onClick={(e) => stopInterval()}>stop</button>;
 };
 
 export default App;
